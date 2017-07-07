@@ -51,22 +51,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
         try {
                 url = CommonInfo.LOGIN_URL;
 
-                JSONObject encriptObject = new JSONObject();
+                JSONObject jsonObject = new JSONObject();
                 JSONArray array = new JSONArray();
                 array.put("all_all");
-                encriptObject.put("userName", "kasun.g@duosoftware.com");
-                encriptObject.put("password", "ADTest123!");
-                encriptObject.put("scope",array);
-                encriptObject.put("console", "AGENT_CONSOLE");
-                encriptObject.put("clientID", "e8ea7bb0-5026-11e7-a69b-b153a7c332b9");
+                jsonObject.put("userName", "kasun.g@duosoftware.com");
+                jsonObject.put("password", "ADTest123!");
+                jsonObject.put("scope",array);
+                jsonObject.put("console", "AGENT_CONSOLE");
+                jsonObject.put("clientID", "e8ea7bb0-5026-11e7-a69b-b153a7c332b9");
 
-                String encriptbody = encriptObject.toString();
-
-                String body = encriptbody;
+                String body = jsonObject.toString();
 
                 new ProgressPOSTServerTask(LoginActivity.this, new ProgressPOSTServerTask.OnRequestCompleted() {
                     @Override
-                    public void OnRequestCompleted(String cmd, CustomAlertDialog dialog) {
+                    public void OnRequestCompleted(String cmd, final CustomAlertDialog dialog) {
                         if (!cmd.equals("error")) {
                             if (cmd.length() > 0) {
                                 dialog.dismiss();
@@ -86,10 +84,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
                             } else {
                                 dialog.changeAlertType(CustomAlertDialog.ERROR);
                                 dialog.setErrorMessage(MessageList.INVALIED_RESPONSE);
+                                dialog.setConfirmClickListener(new CustomAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(CustomAlertDialog sweetAlertDialog) {
+                                        dialog.dismiss();
+                                    }
+                                });
                             }
                         }else{
                             dialog.changeAlertType(CustomAlertDialog.ERROR);
                             dialog.setErrorMessage(MessageList.CONNECTION_ERROR);
+                            dialog.setConfirmClickListener(new CustomAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(CustomAlertDialog sweetAlertDialog) {
+                                    dialog.dismiss();
+                                }
+                            });
                         }
                     }
                 }).execute(url, body);
@@ -122,5 +132,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
                     CommonMethod.getInstance().networkEnabledialog(this);
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        final CustomAlertDialog customAlertDialog = new CustomAlertDialog(this, "Exit", "Do you want to exit?");
+        customAlertDialog.setCancelButton(this, "Ok");
+        customAlertDialog.setConfirmClickListener(new CustomAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(CustomAlertDialog sweetAlertDialog) {
+                customAlertDialog.dismiss();
+                finish();
+            }
+        });
+        customAlertDialog.setCancelClickListener(new CustomAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(CustomAlertDialog sweetAlertDialog) {
+                customAlertDialog.dismiss();
+            }
+        });
     }
 }
