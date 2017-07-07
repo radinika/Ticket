@@ -91,7 +91,7 @@ public class ItemAdapter extends ArrayAdapter {
         try {
             new ProgressGETServerTask(context, new ProgressGETServerTask.OnRequestCompleted() {
                 @Override
-                public void OnRequestCompleted(String cmd, CustomAlertDialog dialog) {
+                public void OnRequestCompleted(String cmd, final CustomAlertDialog dialog) {
                     if (!cmd.equals("error")) {
                         dialog.dismiss();
                         if (cmd.length() > 0) {
@@ -104,10 +104,22 @@ public class ItemAdapter extends ArrayAdapter {
                         } else {
                             dialog.changeAlertType(CustomAlertDialog.ERROR);
                             dialog.setErrorMessage(MessageList.INVALIED_RESPONSE);
+                            dialog.setConfirmClickListener(new CustomAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(CustomAlertDialog sweetAlertDialog) {
+                                    dialog.dismiss();
+                                }
+                            });
                         }
                     }else{
                         dialog.changeAlertType(CustomAlertDialog.ERROR);
                         dialog.setErrorMessage(MessageList.CONNECTION_ERROR);
+                        dialog.setConfirmClickListener(new CustomAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(CustomAlertDialog sweetAlertDialog) {
+                                dialog.dismiss();
+                            }
+                        });
                     }
                 }
             }).execute(url);
@@ -116,5 +128,4 @@ public class ItemAdapter extends ArrayAdapter {
             e.printStackTrace();
         }
     }
-
 }
