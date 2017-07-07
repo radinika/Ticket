@@ -68,7 +68,7 @@ public class ShowTickets extends AppCompatActivity {
                                 dialog.setConfirmClickListener(new CustomAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(CustomAlertDialog sweetAlertDialog) {
-                                        //onBackPressed();
+                                        onBackPressed();
                                     }
                                 });
                             }
@@ -78,7 +78,7 @@ public class ShowTickets extends AppCompatActivity {
                             dialog.setConfirmClickListener(new CustomAlertDialog.OnSweetClickListener() {
                                 @Override
                                 public void onClick(CustomAlertDialog sweetAlertDialog) {
-                                   // onBackPressed();
+                                     onBackPressed();
                                 }
                             });
                         }
