@@ -16,8 +16,8 @@ public class CustomAlertDialog extends Dialog {
     private OnSweetClickListener mCancelClickListener;
     private OnSweetClickListener mConfirmClickListener;
     private Dialog dialogBuilder;
-    Button btnCancel, btnOk;
-    LinearLayout progress_layout, layout_dialog;
+    private Button btnCancel, btnOk;
+    private LinearLayout progress_layout, layout_dialog;
     private View mDialogView;
     TextView txtMsg1, txtMsg2, txtTitle;
     public static int SUCCESS = 1, PROGRESS = 2, ERROR = 3;
@@ -92,12 +92,6 @@ public class CustomAlertDialog extends Dialog {
             progress_layout.setVisibility(View.GONE);
             btnOk.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.GONE);
-            btnOk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialogBuilder.dismiss();
-                }
-            });
 
         }else if(type == SUCCESS){
             layout_dialog.setVisibility(View.VISIBLE);
