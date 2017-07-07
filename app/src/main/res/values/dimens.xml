@@ -9,11 +9,13 @@
     <dimen name="text24">24sp</dimen>
     <dimen name="text26">26sp</dimen>
     <dimen name="text30">30sp</dimen>
+    <dimen name="text32">32sp</dimen>
 
 
     <dimen name="padding1">10dp</dimen>
     <dimen name="padding2">20dp</dimen>
     <dimen name="padding3">30dp</dimen>
     <dimen name="padding4">40dp</dimen>
+    <dimen name="padding6">60dp</dimen>
 
 </resources>
